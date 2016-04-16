@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "udplisten", "udplisten\udplisten.vcxproj", "{EF8068A1-0FD3-4FE3-BFEE-3F707AF29A84}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "udpsend", "udpsend\udpsend.vcxproj", "{990BF8D3-A1D2-4228-9D4F-C0B198A807FD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mulcastsend", "mulcastsend\mulcastsend.vcxproj", "{EC1A23FF-C634-4296-A56E-F5ED69EE66B3}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mulcastrcv", "mulcastrcv\mulcastrcv.vcxproj", "{130E95CA-972E-487A-90D9-EB88D0DF7E76}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EF8068A1-0FD3-4FE3-BFEE-3F707AF29A84}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EF8068A1-0FD3-4FE3-BFEE-3F707AF29A84}.Debug|Win32.Build.0 = Debug|Win32
+		{EF8068A1-0FD3-4FE3-BFEE-3F707AF29A84}.Release|Win32.ActiveCfg = Release|Win32
+		{EF8068A1-0FD3-4FE3-BFEE-3F707AF29A84}.Release|Win32.Build.0 = Release|Win32
+		{990BF8D3-A1D2-4228-9D4F-C0B198A807FD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{990BF8D3-A1D2-4228-9D4F-C0B198A807FD}.Debug|Win32.Build.0 = Debug|Win32
+		{990BF8D3-A1D2-4228-9D4F-C0B198A807FD}.Release|Win32.ActiveCfg = Release|Win32
+		{990BF8D3-A1D2-4228-9D4F-C0B198A807FD}.Release|Win32.Build.0 = Release|Win32
+		{EC1A23FF-C634-4296-A56E-F5ED69EE66B3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EC1A23FF-C634-4296-A56E-F5ED69EE66B3}.Debug|Win32.Build.0 = Debug|Win32
+		{EC1A23FF-C634-4296-A56E-F5ED69EE66B3}.Release|Win32.ActiveCfg = Release|Win32
+		{EC1A23FF-C634-4296-A56E-F5ED69EE66B3}.Release|Win32.Build.0 = Release|Win32
+		{130E95CA-972E-487A-90D9-EB88D0DF7E76}.Debug|Win32.ActiveCfg = Debug|Win32
+		{130E95CA-972E-487A-90D9-EB88D0DF7E76}.Debug|Win32.Build.0 = Debug|Win32
+		{130E95CA-972E-487A-90D9-EB88D0DF7E76}.Release|Win32.ActiveCfg = Release|Win32
+		{130E95CA-972E-487A-90D9-EB88D0DF7E76}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
