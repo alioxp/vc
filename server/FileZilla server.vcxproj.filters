@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="StdAfx.cpp" />
+    <ClCompile Include="AdminListenSocket.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="AdminSocket.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="AsyncSocketEx.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="AsyncSocketExLayer.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="AsyncSslSocketLayer.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="Accounts.cpp">
+      <Filter>option</Filter>
+    </ClCompile>
+    <ClCompile Include="AdminInterface.cpp">
+      <Filter>misc</Filter>
+    </ClCompile>
+    <ClCompile Include="autobanmanager.cpp">
+      <Filter>option</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlSocket.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="conversion.cpp">
+      <Filter>misc</Filter>
+    </ClCompile>
+    <ClCompile Include="misc\dll.cpp">
+      <Filter>misc</Filter>
+    </ClCompile>
+    <ClCompile Include="ExternalIpCheck.cpp">
+      <Filter>misc</Filter>
+    </ClCompile>
+    <ClCompile Include="FileLogger.cpp">
+      <Filter>misc</Filter>
+    </ClCompile>
+    <ClCompile Include="hash_thread.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="iputils.cpp">
+      <Filter>misc</Filter>
+    </ClCompile>
+    <ClCompile Include="ListenSocket.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="misc\md5.cpp">
+      <Filter>misc</Filter>
+    </ClCompile>
+    <ClCompile Include="MFC64bitFix.cpp">
+      <Filter>misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Options.cpp">
+      <Filter>option</Filter>
+    </ClCompile>
+    <ClCompile Include="Permissions.cpp">
+      <Filter>option</Filter>
+    </ClCompile>
+    <ClCompile Include="pasv_port_randomizer.cpp">
+      <Filter>option</Filter>
+    </ClCompile>
+    <ClCompile Include="Server.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerThread.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="Service.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml\tinystr.cpp">
+      <Filter>xml</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml\tinyxml.cpp">
+      <Filter>xml</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml\tinyxmlerror.cpp">
+      <Filter>xml</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml\tinyxmlparser.cpp">
+      <Filter>xml</Filter>
+    </ClCompile>
+    <ClCompile Include="xml_utils.cpp">
+      <Filter>xml</Filter>
+    </ClCompile>
+    <ClCompile Include="TransferSocket.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="SpeedLimit.cpp">
+      <Filter>option</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="version.cpp">
+      <Filter>misc</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="defs.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="AdminListenSocket.h">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="AdminSocket.h">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="AsyncSocketEx.h">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="AsyncSocketExLayer.h">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="AsyncSslSocketLayer.h">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="Accounts.h">
+      <Filter>option</Filter>
+    </ClInclude>
+    <ClInclude Include="AdminInterface.h">
+      <Filter>misc</Filter>
+    </ClInclude>
+    <ClInclude Include="autobanmanager.h">
+      <Filter>option</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlSocket.h">
+      <Filter>server</Filter>
+    </ClInclude>
+    <ClInclude Include="config.h">
+      <Filter>option</Filter>
+    </ClInclude>
+    <ClInclude Include="conversion.h">
+      <Filter>misc</Filter>
+    </ClInclude>
+    <ClInclude Include="misc\dll.h">
+      <Filter>misc</Filter>
+    </ClInclude>
+    <ClInclude Include="ExternalIpCheck.h">
+      <Filter>misc</Filter>
+    </ClInclude>
+    <ClInclude Include="FileLogger.h">
+      <Filter>misc</Filter>
+    </ClInclude>
+    <ClInclude Include="hash_thread.h">
+      <Filter>server</Filter>
+    </ClInclude>
+    <ClInclude Include="iputils.h">
+      <Filter>misc</Filter>
+    </ClInclude>
+    <ClInclude Include="ListenSocket.h">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="MFC64bitFix.h">
+      <Filter>misc</Filter>
+    </ClInclude>
+    <ClInclude Include="OptionLimits.h">
+      <Filter>option</Filter>
+    </ClInclude>
+    <ClInclude Include="Options.h">
+      <Filter>option</Filter>
+    </ClInclude>
+    <ClInclude Include="OptionTypes.h">
+      <Filter>option</Filter>
+    </ClInclude>
+    <ClInclude Include="Permissions.h">
+      <Filter>option</Filter>
+    </ClInclude>
+    <ClInclude Include="pasv_port_randomizer.h">
+      <Filter>option</Filter>
+    </ClInclude>
+    <ClInclude Include="Server.h">
+      <Filter>server</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerThread.h">
+      <Filter>server</Filter>
+    </ClInclude>
+    <ClInclude Include="xml_utils.h">
+      <Filter>xml</Filter>
+    </ClInclude>
+    <ClInclude Include="TransferSocket.h">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread.h">
+      <Filter>server</Filter>
+    </ClInclude>
+    <ClInclude Include="version.h">
+      <Filter>misc</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="FileZilla server.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\FileZilla server.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Users\alio\Downloads\openssl-1.0.1s\openssl-1.0.1s\Makefile" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="socket">
+      <UniqueIdentifier>{fb7fb8e1-4b1e-487b-af82-5d58758e5ca4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="server">
+      <UniqueIdentifier>{02850991-8b8b-4857-a03f-1ac500473ade}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="misc">
+      <UniqueIdentifier>{a1f81b79-46fb-41a6-9ac9-d4543ae170dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="option">
+      <UniqueIdentifier>{a011e0e6-b043-4658-80aa-d3f001f51df9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="xml">
+      <UniqueIdentifier>{e18282d0-41d0-459e-a205-1b3a3663386f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
