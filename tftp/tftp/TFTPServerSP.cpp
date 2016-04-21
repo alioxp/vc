@@ -31,6 +31,8 @@
 using namespace std;
 #include "TFTPServerSP.h"
 #pragma warning(disable:4996) 
+
+#define MCAST_ADDR "224.0.1.88"
 //types
 typedef map<string, request*> myMap;
 typedef multimap<long, request*> myMultiMap;
@@ -52,6 +54,7 @@ data2 cfig;
 packet* datain;
 char tempbuff[256];
 char logBuff[512];
+
 
 //Service Variables
 SERVICE_STATUS serviceStatus;
@@ -1952,6 +1955,10 @@ void init()
 		                               SOCK_DGRAM,
 		                               IPPROTO_UDP);
 
+		//modify
+		bool bReuse = true;
+		::setsockopt(cfig.tftpConn[i].sock, SOL_SOCKET, SO_REUSEADDR, (char*)&bReuse, sizeof(bool));
+
 		if (cfig.tftpConn[i].sock == INVALID_SOCKET)
 		{
 			sprintf(logBuff, "Failed to Create Socket");
@@ -1962,7 +1969,7 @@ void init()
 		cfig.tftpConn[i].addr.sin_family = AF_INET;
 
 		if (!cfig.ports[j])
-			cfig.ports[j] = 69;
+			cfig.ports[j] = 30000;// 69; modify
 
 		cfig.tftpConn[i].addr.sin_addr.s_addr = cfig.servers[j];
 		cfig.tftpConn[i].addr.sin_port = htons(cfig.ports[j]);
@@ -1978,6 +1985,20 @@ void init()
 			sprintf(logBuff, "%s Port %u, bind failed", IP2String(tempbuff, cfig.servers[j]), cfig.ports[j]);
 			logMess(logBuff, 1);
 			continue;
+		}
+
+		//modify
+		struct ip_mreq mreq;/*加入广播组*/
+		mreq.imr_multiaddr.s_addr = inet_addr(MCAST_ADDR);//广播地址
+		mreq.imr_interface.s_addr = INADDR_ANY; //网络接口为默认
+		/*将本机加入广播组*/
+		int err = setsockopt(cfig.tftpConn[i].sock, IPPROTO_IP, IP_ADD_MEMBERSHIP, (const char*)&mreq, sizeof(mreq));
+		if (err<0)
+		{
+			DWORD dwErr = GetLastError();
+			sprintf(logBuff, "set sock error");
+			logMess(logBuff, 1);
+			return ;
 		}
 
 		if (cfig.maxFD < cfig.tftpConn[i].sock)
