@@ -32,7 +32,10 @@ using namespace std;
 #include "TFTPServerSP.h"
 #pragma warning(disable:4996) 
 
+//#define USE_BROADCAST_UDP true
+
 #define MCAST_ADDR "224.0.1.88"
+const int UDP_PORT = 30000;
 //types
 typedef map<string, request*> myMap;
 typedef multimap<long, request*> myMultiMap;
@@ -1954,10 +1957,11 @@ void init()
  		cfig.tftpConn[i].sock = socket(PF_INET,
 		                               SOCK_DGRAM,
 		                               IPPROTO_UDP);
-
+#ifdef USE_BROADCAST_UDP
 		//modify
 		bool bReuse = true;
 		::setsockopt(cfig.tftpConn[i].sock, SOL_SOCKET, SO_REUSEADDR, (char*)&bReuse, sizeof(bool));
+#endif
 
 		if (cfig.tftpConn[i].sock == INVALID_SOCKET)
 		{
@@ -1969,7 +1973,7 @@ void init()
 		cfig.tftpConn[i].addr.sin_family = AF_INET;
 
 		if (!cfig.ports[j])
-			cfig.ports[j] = 30000;// 69; modify
+			cfig.ports[j] = UDP_PORT;// 30000;// 69; modify
 
 		cfig.tftpConn[i].addr.sin_addr.s_addr = cfig.servers[j];
 		cfig.tftpConn[i].addr.sin_port = htons(cfig.ports[j]);
@@ -1986,7 +1990,7 @@ void init()
 			logMess(logBuff, 1);
 			continue;
 		}
-
+#ifdef USE_BROADCAST_UDP
 		//modify
 		struct ip_mreq mreq;/*加入广播组*/
 		mreq.imr_multiaddr.s_addr = inet_addr(MCAST_ADDR);//广播地址
@@ -2000,6 +2004,7 @@ void init()
 			logMess(logBuff, 1);
 			return ;
 		}
+#endif
 
 		if (cfig.maxFD < cfig.tftpConn[i].sock)
 			cfig.maxFD = cfig.tftpConn[i].sock;
