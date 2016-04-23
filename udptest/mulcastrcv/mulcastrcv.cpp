@@ -35,8 +35,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 
 	/*设置回环许可*/
-	//int loop=1;
-	//err=setsockopt(s,IPPROTO_IP,IP_MULTICAST_LOOP,(const char*)&loop,sizeof(loop));
+	int loop=0;
+	err=setsockopt(s,IPPROTO_IP,IP_MULTICAST_LOOP,(const char*)&loop,sizeof(loop));
 	//if(err<0)
 	//{
 	//		printf("set sock error");
@@ -65,6 +65,16 @@ int _tmain(int argc, _TCHAR* argv[])
 		{
 			sz[nRet]= '\0';
 			printf(sz);
+		}
+
+		char sz[] = "test\0";
+		//while(1)
+		{
+			SOCKADDR_IN bcast;
+			bcast.sin_family = AF_INET;
+			bcast.sin_addr.S_un.S_addr = inet_addr(MCAST_ADDR);
+			bcast.sin_port = htons(MCAST_PORT);
+			::sendto(s,sz,strlen(sz),0,(sockaddr*)&bcast,sizeof(bcast));
 		}
 	}
 	return 0;
