@@ -32,7 +32,7 @@ using namespace std;
 #include "TFTPServerSP.h"
 #pragma warning(disable:4996) 
 
-//#define USE_BROADCAST_UDP true
+#define USE_BROADCAST_UDP true
 
 #define MCAST_ADDR "224.0.1.88"
 const int UDP_PORT = 30000;
@@ -622,6 +622,10 @@ void runProg()
 				errno = 0;
 				req.bytesRecd = recvfrom(cfig.tftpConn[req.sockInd].sock, (char*)datain, blksize + 4, 0, (sockaddr*)&req.client, &req.clientsize);
 
+#ifdef USE_BROADCAST_UDP
+				req.client.sin_addr.S_un.S_addr = inet_addr(MCAST_ADDR); 
+				req.client.sin_port = htons(UDP_PORT);
+#endif
 				if (req.bytesRecd < 4 || errno)
 					continue;
 
@@ -1959,8 +1963,26 @@ void init()
 		                               IPPROTO_UDP);
 #ifdef USE_BROADCAST_UDP
 		//modify
+		int err0 = 0;
 		bool bReuse = true;
-		::setsockopt(cfig.tftpConn[i].sock, SOL_SOCKET, SO_REUSEADDR, (char*)&bReuse, sizeof(bool));
+		err0 = ::setsockopt(cfig.tftpConn[i].sock, SOL_SOCKET, SO_REUSEADDR, (char*)&bReuse, sizeof(bool));
+		if (err0<0)
+		{
+			DWORD dwErr = GetLastError();
+			sprintf(logBuff, "set sock reuse error");
+			logMess(logBuff, 1);
+			return;
+		}
+
+		int loop = 0;
+		err0 = setsockopt(cfig.tftpConn[i].sock, IPPROTO_IP, IP_MULTICAST_LOOP, (const char*)&loop, sizeof(loop));
+		if (err0<0)
+		{
+			DWORD dwErr = GetLastError();
+			sprintf(logBuff, "set sock loop error");
+			logMess(logBuff, 1);
+			return;
+		}
 #endif
 
 		if (cfig.tftpConn[i].sock == INVALID_SOCKET)
