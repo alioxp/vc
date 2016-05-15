@@ -32,7 +32,7 @@ using namespace std;
 #include "TFTPServerSP.h"
 #pragma warning(disable:4996) 
 
-#define USE_BROADCAST_UDP true
+//#define USE_BROADCAST_UDP true
 
 #define MCAST_ADDR "224.0.1.88"
 const int UDP_PORT = 30000;
@@ -295,68 +295,68 @@ void WINAPI ServiceMain(DWORD /*argc*/, TCHAR* /*argv*/[])
 			myMultiMap::iterator p = tftpAge.begin();
 			myMultiMap::iterator q;
 			time_t currentTime = time(NULL);
-			request *req;
+			request *p_req;
 
 			while (p != tftpAge.end())
 			{
-				req = p->second;
+				p_req = p->second;
 
 				if (p->first > currentTime)
 					break;
-				else if (p->first < req->expiry && req->expiry > currentTime)
+				else if (p->first < p_req->expiry && p_req->expiry > currentTime)
 				{
 					q = p;
 					p++;
 					tftpAge.erase(q);
-					tftpAge.insert(pair<long, request*>(req->expiry, req));
+					tftpAge.insert(pair<long, request*>(p_req->expiry, p_req));
 				}
-				else if (req->expiry <= currentTime && req->attempt >= 3)
+				else if (p_req->expiry <= currentTime && p_req->attempt >= 3)
 				{
-					if (req->attempt < UCHAR_MAX)
+					if (p_req->attempt < UCHAR_MAX)
 					{
-						req->serverError.opcode = htons(5);
-						req->serverError.errorcode = htons(0);
+						p_req->serverError.opcode = htons(5);
+						p_req->serverError.errorcode = htons(0);
 
-						if (req->fblock && !req->block)
-							strcpy(req->serverError.errormessage, "Large File, Block# Rollover not supported by Client");
+						if (p_req->fblock && !p_req->block)
+							strcpy(p_req->serverError.errormessage, "Large File, Block# Rollover not supported by Client");
 						else
-							strcpy(req->serverError.errormessage, "Timeout");
+							strcpy(p_req->serverError.errormessage, "Timeout");
 
-						sendto(cfig.tftpConn[req->sockInd].sock, (const char*)&req->serverError, strlen(req->serverError.errormessage) + 5, 0, (sockaddr*)&req->client, req->clientsize);
-						logMess(req, 1);
+						sendto(cfig.tftpConn[p_req->sockInd].sock, (const char*)&p_req->serverError, strlen(p_req->serverError.errormessage) + 5, 0, (sockaddr*)&p_req->client, p_req->clientsize);
+						logMess(p_req, 1);
 					}
 
 					q = p;
 					p++;
 					tftpAge.erase(q);
-					tftpCache.erase(req->mapname);
-					cleanReq(req);
-					free(req);
+					tftpCache.erase(p_req->mapname);
+					cleanReq(p_req);
+					free(p_req);
 				}
-				else if (req->expiry <= currentTime)
+				else if (p_req->expiry <= currentTime)
 				{
-					if (ntohs(req->acout.opcode) == 3)
+					if (ntohs(p_req->acout.opcode) == 3)
 					{
-						if (processSend(req))
-							cleanReq(req);
+						if (processSend(p_req))
+							cleanReq(p_req);
 						else
 						{
-							req->attempt++;
-							req->expiry = currentTime + req->timeout;
+							p_req->attempt++;
+							p_req->expiry = currentTime + p_req->timeout;
 						}
 					}
 					else
 					{
 						errno = 0;
-						sendto(cfig.tftpConn[req->sockInd].sock, (const char*)&req->acout, req->bytesReady, 0, (sockaddr*)&req->client, req->clientsize);
+						sendto(cfig.tftpConn[p_req->sockInd].sock, (const char*)&p_req->acout, p_req->bytesReady, 0, (sockaddr*)&p_req->client, p_req->clientsize);
 						errno = WSAGetLastError();
 
 						if (errno)
-							cleanReq(req);
+							cleanReq(p_req);
 						else
 						{
-							req->attempt++;
-							req->expiry = currentTime + req->timeout;
+							p_req->attempt++;
+							p_req->expiry = currentTime + p_req->timeout;
 						}
 					}
 					p++;
@@ -616,7 +616,7 @@ void runProg()
 			{
 				fdsReady--;
 				memset(&req, 0, sizeof(request));
-				memset(datain, 0, blksize + 4);
+				memset(datain, 0,   + 4);
 				req.clientsize = sizeof(req.client);
 				req.sockInd = i;
 				errno = 0;
@@ -762,68 +762,68 @@ void runProg()
 		myMultiMap::iterator p = tftpAge.begin();
 		myMultiMap::iterator q;
 		time_t currentTime = time(NULL);
-		request *req;
+		request *p_req;
 
 		while (p != tftpAge.end())
 		{
-			req = p->second;
+			p_req = p->second;
 
 			if (p->first > currentTime)
 				break;
-			else if (p->first < req->expiry && req->expiry > currentTime)
+			else if (p->first < p_req->expiry && p_req->expiry > currentTime)
 			{
 				q = p;
 				p++;
 				tftpAge.erase(q);
-				tftpAge.insert(pair<long, request*>(req->expiry, req));
+				tftpAge.insert(pair<long, request*>(p_req->expiry, p_req));
 			}
-			else if (req->expiry <= currentTime && req->attempt >= 3)
+			else if (p_req->expiry <= currentTime && p_req->attempt >= 3)
 			{
-				if (req->attempt < UCHAR_MAX)
+				if (p_req->attempt < UCHAR_MAX)
 				{
-					req->serverError.opcode = htons(5);
-					req->serverError.errorcode = htons(0);
+					p_req->serverError.opcode = htons(5);
+					p_req->serverError.errorcode = htons(0);
 
-					if (req->fblock && !req->block)
-						strcpy(req->serverError.errormessage, "Large File, Block# Rollover not supported by Client");
+					if (p_req->fblock && !p_req->block)
+						strcpy(p_req->serverError.errormessage, "Large File, Block# Rollover not supported by Client");
 					else
-						strcpy(req->serverError.errormessage, "Timeout");
+						strcpy(p_req->serverError.errormessage, "Timeout");
 
-					sendto(cfig.tftpConn[req->sockInd].sock, (const char*)&req->serverError, strlen(req->serverError.errormessage) + 5, 0, (sockaddr*)&req->client, req->clientsize);
-					logMess(req, 1);
+					sendto(cfig.tftpConn[p_req->sockInd].sock, (const char*)&p_req->serverError, strlen(p_req->serverError.errormessage) + 5, 0, (sockaddr*)&p_req->client, p_req->clientsize);
+					logMess(p_req, 1);
 				}
 
 				q = p;
 				p++;
 				tftpAge.erase(q);
-				tftpCache.erase(req->mapname);
-				cleanReq(req);
-				free(req);
+				tftpCache.erase(p_req->mapname);
+				cleanReq(p_req);
+				free(p_req);
 			}
-			else if (req->expiry <= currentTime)
+			else if (p_req->expiry <= currentTime)
 			{
-				if (ntohs(req->acout.opcode) == 3)
+				if (ntohs(p_req->acout.opcode) == 3)
 				{
-					if (processSend(req))
-						cleanReq(req);
+					if (processSend(p_req))
+						cleanReq(p_req);
 					else
 					{
-						req->attempt++;
-						req->expiry = currentTime + req->timeout;
+						p_req->attempt++;
+						p_req->expiry = currentTime + p_req->timeout;
 					}
 				}
 				else
 				{
 					errno = 0;
-					sendto(cfig.tftpConn[req->sockInd].sock, (const char*)&req->acout, req->bytesReady, 0, (sockaddr*)&req->client, req->clientsize);
+					sendto(cfig.tftpConn[p_req->sockInd].sock, (const char*)&p_req->acout, p_req->bytesReady, 0, (sockaddr*)&p_req->client, p_req->clientsize);
 					errno = WSAGetLastError();
 
 					if (errno)
-						cleanReq(req);
+						cleanReq(p_req);
 					else
 					{
-						req->attempt++;
-						req->expiry = currentTime + req->timeout;
+						p_req->attempt++;
+						p_req->expiry = currentTime + p_req->timeout;
 					}
 				}
 				p++;
